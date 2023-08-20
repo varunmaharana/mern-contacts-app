@@ -1,0 +1,58 @@
+@import "colors";
+
+#header {
+    // position: sticky;
+    top: 0;
+    // width: 100%;
+    // margin: ;
+    background-color: $purple;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+
+
+    > .logo {
+        padding: 5px 10px;
+        transition: 0.2s;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        font-weight: 900;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $lightpurple;
+        }
+    }
+
+    > nav  {
+        display: flex;
+        // justify-content: center;
+        // align-items: center;
+        
+        > section {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+
+            > a {
+                // color: $purple;
+                padding: 5px 10px;
+                
+                transition: 0.2s;
+                border-radius: 5px;
+    
+                &:hover {
+                    background-color: $lightpurple;
+    
+                }
+    
+                > svg {
+                    font-size: 1.250rem;
+                    margin-right: 3px;
+                    margin-bottom: -5px;
+                }
+            }
+        }
+    }
+}
