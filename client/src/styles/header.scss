@@ -13,6 +13,8 @@
 
     > .logo {
         padding: 5px 10px;
+        width: fit-content;
+        height: auto;
         transition: 0.2s;
         border-radius: 5px;
         font-size: 1.5rem;
@@ -26,8 +28,6 @@
 
     > nav  {
         display: flex;
-        // justify-content: center;
-        // align-items: center;
         
         > section {
             display: flex;

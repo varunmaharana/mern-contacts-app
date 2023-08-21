@@ -30,9 +30,9 @@ const Header = ({ isAuthenticated }) => {
 
   return (
     <motion.section
-      initial={{ y: "-100%" }}
-      whileInView={{ y: 0 }}
-      transition={{ type: "just" }}
+      // initial={{ y: "-100%" }}
+      // whileInView={{ y: 0 }}
+      // transition={{ type: "just" }}
       id="header"
       style={stickyState ? { position: "sticky" } : {}}
     >
@@ -57,7 +57,7 @@ const Header = ({ isAuthenticated }) => {
           </Link>
           <Link to="/login">
             <MdLogin />
-            <span>Login</span>
+            <span>Log In</span>
           </Link>
         </section>
       </motion.nav>

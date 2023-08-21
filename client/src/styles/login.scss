@@ -1,0 +1,58 @@
+@import "colors";
+
+#login {
+    background: $cream;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0;
+
+    > .container {
+        width: 50%;
+        
+        > .title {
+            text-align: center;
+            margin-bottom: 30px;
+            
+            > h2 {
+                font-weight: 500;
+            }
+
+            > h1 {
+                padding: 5px 10px;
+                font-size: 1.5rem;
+                font-weight: 900;
+                cursor: pointer;
+            }
+        }
+
+        > form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            > .pwdGroup {
+                position: relative;
+                
+                > span {
+                    position: absolute;
+                    top: 50%;
+                    right: 15px;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                }
+            }
+
+            input[type="text"],
+            input[type="password"]  {
+                font-size: 1rem;
+                padding: 1rem;
+                border: 1px solid black;
+                border-radius: 5px;
+                outline: none;
+                width: 100%;
+            }
+        }
+    }
+}
