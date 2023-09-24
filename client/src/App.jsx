@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 // Importing Components
 import Home from "./components/home/Home";
 import Login from "./components/authentication/Login";
-import SignUp from "./components/authentication/SignUp";
+import SignUp from "./components/authentication/Signup";
 import NotFound from "./components/layout/NotFound";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -18,6 +18,7 @@ import "./styles/App.scss";
 import "./styles/header.scss";
 import "./styles/footer.scss";
 import "./styles/login.scss";
+import "./styles/signup.scss";
 
 
 const App = () => {

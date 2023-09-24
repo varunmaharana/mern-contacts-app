@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { FiEye } from "react-icons/fi";
-import { FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiInfo } from "react-icons/fi";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,16 +12,21 @@ const Login = () => {
           <h1>Contacts App</h1>
         </div>
         <form action="">
-          <input type="text" placeholder="Username" />
+          <input type="text" placeholder="Enter Username" />
           <div className="pwdGroup">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="Enter Password"
             />
             <span onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <FiEye /> : <FiEyeOff />}
             </span>
           </div>
+          <div className="errMessage">
+            <FiInfo />
+            <p>Passwords do not match!</p>
+          </div>
+          <input type="submit" value="Log In" />
         </form>
       </div>
     </section>
