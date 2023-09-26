@@ -41,6 +41,8 @@ const Header = ({ isAuthenticated }) => {
       </motion.div>
 
       <motion.nav initial={{ y: "-100%" }} whileInView={{ y: 0 }}>
+
+        {/* Logged In State */}
         <section style={isAuthenticated ? {} : { display: "none" }}>
           <Link to="/myprofile">
             <MdAccountCircle /> <span>Profile</span>
@@ -50,6 +52,8 @@ const Header = ({ isAuthenticated }) => {
             <span>Logout</span>
           </Link>
         </section>
+
+        {/* Logged Out State */}
         <section style={isAuthenticated ? { display: "none" } : {}}>
           <Link to="/signup">
             <MdPerson />
