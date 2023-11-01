@@ -10,17 +10,17 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRetypedPassword, setShowRetypedPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+	const [redirect, setRedirect] = useState(false);
 
   const register = async (e) => {
     e.preventDefault();
 
     // form validation
     if (username === "" || password === "") {
-      setErrorMessage("Username or Password field is empty!");
+      setErrorMessage("Username or Password is missing!");
     } else if (password !== retypedPassword) {
       setErrorMessage("Passwords do not match!");
-    } else if (username && (password === retypedPassword)) {
+    } else if (username && password === retypedPassword) {
       setErrorMessage("");
 
       // if form valid call api
@@ -29,19 +29,23 @@ const SignUp = () => {
         body: JSON.stringify({ username, password }),
         headers: { "Content-Type": "application/json" },
       });
-      if (response.status === 200) {
+      if (response.ok) {
         console.log(response);
-        
+
         // redirect to Login Page
-        navigate("/login");
+        setRedirect(true);
+        // navigate("/login");
         // alert("Registration successful.");
       } else {
         console.log(response);
-        setErrorMessage("Registration Failed! Please try again.")
+        setErrorMessage("Registration Failed! Please try again.");
       }
     }
-
   };
+
+  if (redirect) {
+		return <Navigate to="/login" />;
+	}
 
   return (
     <section id="signup">
@@ -52,12 +56,14 @@ const SignUp = () => {
         </div>
         <form onSubmit={register}>
           <input
+            value={username}
             type="text"
             placeholder="Enter Username"
             onChange={(ev) => setUsername(ev.target.value)}
           />
           <div className="pwdGroup">
             <input
+              value={password}
               type={showPassword ? "text" : "password"}
               placeholder="Enter Password"
               onChange={(ev) => setPassword(ev.target.value)}
@@ -68,6 +74,7 @@ const SignUp = () => {
           </div>
           <div className="pwdGroup">
             <input
+              value={retypedPassword}
               type={showRetypedPassword ? "text" : "password"}
               placeholder="Re-enter password"
               onChange={(ev) => setRetypedPassword(ev.target.value)}

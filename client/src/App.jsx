@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
+import { UserContext, UserContextProvider } from "./utils/UserContext";
+import { Provider, useSelector } from "react-redux";
+import store from "./redux/store";
 
 // Importing Components
 import Home from "./components/home/Home";
@@ -20,25 +23,34 @@ import "./styles/footer.scss";
 import "./styles/login.scss";
 import "./styles/signup.scss";
 
-
 const App = () => {
+  // const { isAuthenticated } = useContext(UserContext);
+
+  const { isAuthenticated } = useSelector(
+    (state) => state.isAuthenticatedReducer
+  );
+
   return (
-    <div className="App">
-      <Header isAuthenticated={false} />
+    <UserContextProvider>
+        <div className="App">
+          <Header isAuthenticated={isAuthenticated} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/myprofile" element={<ViewProfile />} />
-        <Route path="/myprofile/edit" element={<EditProfile />} />
-        <Route path="/contact/:id" element={<ViewContact />} />
-        <Route path="/contact/edit/:id" element={<EditContact />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/myprofile" element={<ViewProfile />} />
+            <Route path="/myprofile/edit" element={<EditProfile />} />
+            <Route path="/contact/:id" element={<ViewContact />} />
+            <Route path="/contact/edit/:id" element={<EditContact />} />
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </div>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+
+          <Footer />
+        </div>
+      
+    </UserContextProvider>
   );
 };
 

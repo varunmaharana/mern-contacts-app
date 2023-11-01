@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MdAccountCircle, MdLogout, MdLogin, MdPerson } from "react-icons/md";
+import { UserContext } from "../../utils/UserContext";
+import { useDispatch } from "react-redux";
 
 const Header = ({ isAuthenticated }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [stickyState, setStickyState] = useState(false);
+  // const { isAuthenticated } = useContext(UserContext);
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);
@@ -19,6 +22,10 @@ const Header = ({ isAuthenticated }) => {
     };
   }, []);
 
+  // useEffect(() => {
+
+  // },[isAuthenticated]);
+
   useEffect(() => {
     if (scrollPosition > 100) {
       setStickyState(true);
@@ -27,6 +34,14 @@ const Header = ({ isAuthenticated }) => {
       setStickyState(false);
     }
   }, [scrollPosition]);
+
+  const isAuthenticatedDispatch = useDispatch();
+
+  const logout = () => {
+    isAuthenticatedDispatch({
+      type: "unauthorize",
+    });
+  }
 
   return (
     <motion.section
@@ -41,29 +56,31 @@ const Header = ({ isAuthenticated }) => {
       </motion.div>
 
       <motion.nav initial={{ y: "-100%" }} whileInView={{ y: 0 }}>
+        {isAuthenticated ? (
+          // Logged in state
+          <section>
+            <Link to="/myprofile">
+              <MdAccountCircle /> <span>Profile</span>
+            </Link>
+            <Link to="/login" onClick={logout}>
+              <MdLogout />
+              <span>Logout</span>
+            </Link>
+          </section>
+        ) : (
+          // Logged Out State 
+          <section>
+            <Link to="/signup">
+              <MdPerson />
+              <span>Sign Up</span>
+            </Link>
+            <Link to="/login">
+              <MdLogin />
+              <span>Log In</span>
+            </Link>
+          </section>
+        )}
 
-        {/* Logged In State */}
-        <section style={isAuthenticated ? {} : { display: "none" }}>
-          <Link to="/myprofile">
-            <MdAccountCircle /> <span>Profile</span>
-          </Link>
-          <Link to="/login">
-            <MdLogout />
-            <span>Logout</span>
-          </Link>
-        </section>
-
-        {/* Logged Out State */}
-        <section style={isAuthenticated ? { display: "none" } : {}}>
-          <Link to="/signup">
-            <MdPerson />
-            <span>Sign Up</span>
-          </Link>
-          <Link to="/login">
-            <MdLogin />
-            <span>Log In</span>
-          </Link>
-        </section>
       </motion.nav>
     </motion.section>
   );
