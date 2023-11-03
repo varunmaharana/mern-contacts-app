@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { UserContext, UserContextProvider } from "./utils/UserContext";
 import { Provider, useSelector } from "react-redux";
 import store from "./redux/store";
@@ -36,7 +36,8 @@ const App = () => {
           <Header isAuthenticated={isAuthenticated} />
 
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/myprofile" element={<ViewProfile />} />

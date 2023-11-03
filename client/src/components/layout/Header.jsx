@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { MdAccountCircle, MdLogout, MdLogin, MdPerson } from "react-icons/md";
 import { UserContext } from "../../utils/UserContext";
 import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { USER_AUTH_TOKEN } from "../../core";
 
 const Header = ({ isAuthenticated }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -22,10 +24,6 @@ const Header = ({ isAuthenticated }) => {
     };
   }, []);
 
-  // useEffect(() => {
-
-  // },[isAuthenticated]);
-
   useEffect(() => {
     if (scrollPosition > 100) {
       setStickyState(true);
@@ -38,9 +36,22 @@ const Header = ({ isAuthenticated }) => {
   const isAuthenticatedDispatch = useDispatch();
 
   const logout = () => {
-    isAuthenticatedDispatch({
-      type: "unauthorize",
-    });
+    console.log(isAuthenticated, "isAuthenticated before h dispatch");
+    
+    // Delete token and unauthorize user
+    if (Cookies.get(USER_AUTH_TOKEN)) {
+      Cookies.remove(USER_AUTH_TOKEN);
+    }
+
+    if (Cookies.get(USER_AUTH_TOKEN)) {
+    } else {
+      isAuthenticatedDispatch({
+        type: "unauthorize",
+      });
+    }
+
+    console.log(isAuthenticated, "isAuthenticated after h dispatch");
+
   }
 
   return (

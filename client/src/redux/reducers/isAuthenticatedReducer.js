@@ -1,15 +1,22 @@
 import { createReducer } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
+import { USER_AUTH_TOKEN } from "../../core";
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: Cookies.get(USER_AUTH_TOKEN) ? true : false,
 }
+
+console.log('inside auth reducer:', Cookies.get(USER_AUTH_TOKEN), initialState.isAuthenticated);
 
 const isAuthenticatedReducer = createReducer(initialState ,{
     authorize: (state, action) => {
         state.isAuthenticated = true;
+        console.log(state.isAuthenticated);
+
     },
     unauthorize: (state, action) => {
         state.isAuthenticated = false;
+        console.log(state.isAuthenticated);
     },
 });
 

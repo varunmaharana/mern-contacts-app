@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import { FiEye, FiEyeOff, FiInfo } from "react-icons/fi";
-import { API_LINK } from "../../core";
+import { API_LINK, USER_AUTH_TOKEN } from "../../core";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../../utils/UserContext";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -41,9 +42,13 @@ const Login = () => {
           console.log(userInfo, "userInfo");
           // setUserInfo(userInfo);
           console.log(isAuthenticated, "isAuthenticated before dispatch");
-          isAuthenticatedDispatch({
-            type: "authorize",
-          });
+
+          if (Cookies.get(USER_AUTH_TOKEN)) {
+            isAuthenticatedDispatch({
+              type: "authorize",
+            });
+          }
+
           console.log(isAuthenticated, "isAuthenticated after dispatch");
         });
         
@@ -60,7 +65,7 @@ const Login = () => {
 
   // Redirect to 
   if (redirect) {
-		return <Navigate to="/" />;
+		return <Navigate to="/home" />;
 	}
 
   return (
