@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { FiEye, FiEyeOff, FiInfo } from "react-icons/fi";
 import { API_LINK, USER_AUTH_TOKEN } from "../../core";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "../../utils/UserContext";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 
@@ -12,12 +11,16 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 	const [redirect, setRedirect] = useState(false);
-	const { setUserInfo } = useContext(UserContext);
   
   const isAuthenticatedDispatch = useDispatch();
+  const userInfoDispatch = useDispatch();
+
   const { isAuthenticated } = useSelector(
     (state) => state.isAuthenticatedReducer
   );
+  // const { userInfo } = useSelector(
+  //   (state) => state.userInfoReducer
+  // );
 
   const login = async (e) => {
     e.preventDefault();
@@ -46,6 +49,11 @@ const Login = () => {
           if (Cookies.get(USER_AUTH_TOKEN)) {
             isAuthenticatedDispatch({
               type: "authorize",
+            });
+
+            userInfoDispatch({
+              type: "addUserInfo",
+              payload: userInfo,
             });
           }
 

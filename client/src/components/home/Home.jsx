@@ -7,9 +7,17 @@ const Home = () => {
     (state) => state.isAuthenticatedReducer
   );
 
+  const { userInfo } = useSelector(
+    (state) => state.userInfoReducer
+  );
+
+  console.log("User Info:",userInfo);
+
   if (!isAuthenticated) {
 		return <Navigate to="/login" />;
   }
+
+
 
   return <section>Home</section>;
 };

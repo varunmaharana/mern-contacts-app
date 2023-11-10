@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MdAccountCircle, MdLogout, MdLogin, MdPerson } from "react-icons/md";
-import { UserContext } from "../../utils/UserContext";
+import { MdAccountCircle, MdLogout, MdLogin, MdPerson, MdPersonAdd } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { USER_AUTH_TOKEN } from "../../core";
@@ -70,6 +69,9 @@ const Header = ({ isAuthenticated }) => {
         {isAuthenticated ? (
           // Logged in state
           <section>
+            <Link to="/contact/create">
+              <MdPersonAdd /> <span>Create</span>
+            </Link>
             <Link to="/myprofile">
               <MdAccountCircle /> <span>Profile</span>
             </Link>

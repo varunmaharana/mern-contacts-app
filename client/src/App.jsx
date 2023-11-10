@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { UserContext, UserContextProvider } from "./utils/UserContext";
 import { Provider, useSelector } from "react-redux";
 import store from "./redux/store";
 
@@ -13,6 +12,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import ViewProfile from "./components/profile/ViewProfile";
 import EditProfile from "./components/profile/EditProfile";
+import CreateContact from "./components/contact/CreateContact";
 import ViewContact from "./components/contact/ViewContact";
 import EditContact from "./components/contact/EditContact";
 
@@ -31,27 +31,25 @@ const App = () => {
   );
 
   return (
-    <UserContextProvider>
-        <div className="App">
-          <Header isAuthenticated={isAuthenticated} />
+    <div className="App">
+      <Header isAuthenticated={isAuthenticated} />
 
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/myprofile" element={<ViewProfile />} />
-            <Route path="/myprofile/edit" element={<EditProfile />} />
-            <Route path="/contact/:id" element={<ViewContact />} />
-            <Route path="/contact/edit/:id" element={<EditContact />} />
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/myprofile" element={<ViewProfile />} />
+        <Route path="/myprofile/edit" element={<EditProfile />} />
+        <Route path="/contact/create" element={<CreateContact />} />
+        <Route path="/contact/:id" element={<ViewContact />} />
+        <Route path="/contact/edit/:id" element={<EditContact />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
 
-          <Footer />
-        </div>
-      
-    </UserContextProvider>
+      <Footer />
+    </div>
   );
 };
 

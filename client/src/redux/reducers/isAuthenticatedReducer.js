@@ -6,8 +6,6 @@ const initialState = {
     isAuthenticated: Cookies.get(USER_AUTH_TOKEN) ? true : false,
 }
 
-console.log('inside auth reducer:', Cookies.get(USER_AUTH_TOKEN), initialState.isAuthenticated);
-
 const isAuthenticatedReducer = createReducer(initialState ,{
     authorize: (state, action) => {
         state.isAuthenticated = true;
