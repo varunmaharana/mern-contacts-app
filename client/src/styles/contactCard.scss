@@ -1,0 +1,104 @@
+@import "colors";
+
+#contactCard {
+    background: $white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #00000029;
+    padding: 20px;
+    // min-width: 200px;
+    // max-width: 250px;
+    transition: 0.3s;
+    position: relative;
+
+    &:hover {
+        box-shadow: 0 0 10px #0000006d;
+    }
+
+    > .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+
+        > .avatar {
+            overflow: hidden;
+            
+            > img {
+                width: 100px;
+                border-radius: 50%;
+                aspect-ratio: 1 / 1;
+            }
+        }
+    
+        > .info {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+    
+            > .fullName {
+                font-size: 16px;
+            }
+    
+            > .phoneNumber, .emailAddress, .address {
+                color: $blue;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    > .menuButton {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 18px;
+        color: $blue;
+
+        &:hover {
+            color: $deepblue;
+        }
+    }
+
+    > .menuOverlay {
+        border-radius: 5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: $white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        overflow: hidden;
+
+
+        > .menuCloseButton {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            color: $blue;
+    
+            &:hover {
+                color: $deepblue;
+            }
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 0.3rem;
+            border: 1px solid black;
+            border-radius: 5px;
+            outline: none;
+            background-color: $lighterpurple;
+            cursor: pointer;
+        }
+    }
+}
