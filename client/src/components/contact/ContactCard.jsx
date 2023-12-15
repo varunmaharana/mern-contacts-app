@@ -13,9 +13,17 @@ import { motion } from "framer-motion";
 import tempdp from ".././../assets/dp.jpg";
 import tempdp2 from ".././../assets/seminar.jpg";
 
-const ContactCard = () => {
+const ContactCard = ({
+  namePrefix = "Mr.",
+  firstName = "Varun",
+  middleName = "Nexile",
+  lastName = "Maharana",
+  nameSuffix = "CSE",
+  phoneNumber = "7049504859",
+  emailAddress = "varunmaharana95@gmail.com",
+  address = "Raipur, Chhattisgarh, India",
+}) => {
   const [toggleMenu, setToggleMenu] = useState(false);
-
 
   return (
     <div id="contactCard">
@@ -25,24 +33,24 @@ const ContactCard = () => {
         </div>
         <div className="info">
           <h3 className="fullName">
-            <span className="namePrefix">Mr. </span>
-            <span className="firstName">Varun </span>
-            <span className="middleName">Nexile </span>
-            <span className="lastName">Maharana</span>
-            <span className="nameSuffix">, CSE</span>
+            {namePrefix && <span className="namePrefix">{namePrefix} </span>}
+            {firstName && <span className="firstName">{firstName} </span>}
+            {middleName && <span className="middleName">{middleName} </span>}
+            {lastName && <span className="lastName">{lastName}</span>}
+            {nameSuffix && <span className="nameSuffix">, {nameSuffix}</span>}
           </h3>
-          <p className="phoneNumber">
+          {phoneNumber && <p className="phoneNumber">
             <MdPhone />
-            &nbsp;7049504859
-          </p>
-          <p className="emailAddress">
+            &nbsp;{phoneNumber}
+          </p>}
+          {emailAddress && <p className="emailAddress">
             <MdEmail />
-            &nbsp;varunmaharana95@gmail.com
-          </p>
-          <p className="address">
+            &nbsp;{emailAddress}
+          </p>}
+          {address && <p className="address">
             <MdLocationOn />
-            &nbsp;Raipur, Chhattisgarh, India
-          </p>
+            &nbsp;{address}
+          </p>}
         </div>
       </div>
 

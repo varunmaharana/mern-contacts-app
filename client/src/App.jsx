@@ -24,6 +24,7 @@ import "./styles/login.scss";
 import "./styles/signup.scss";
 import "./styles/home.scss";
 import "./styles/contactCard.scss";
+import "./styles/createContact.scss";
 
 const App = () => {
   // const { isAuthenticated } = useContext(UserContext);

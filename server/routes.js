@@ -1,6 +1,7 @@
 import express from "express";
-import User from "./models/User.js"
 import jwt from "jsonwebtoken";
+import User from "./models/User.js"
+import Contact from "./models/Contact.js";
 
 const router = express.Router();
 
@@ -72,5 +73,97 @@ router.post("/login", async (req, res) => {
         }
     }
 });
+
+router.post("/createContact", async (req, res) => {
+    // const {
+    //     namePrefix,
+    //     firstName,
+    //     middleName,
+    //     lastName,
+    //     nameSuffix,
+    //     phoneNumber,
+    //     emailAddress,
+    //     address,
+    //     dateOfBirth,
+    //     additionalNote,
+    //     creator,
+    // } = req.body;
+
+    const { contact_app_login_token } = req.cookies;
+	jwt.verify(contact_app_login_token, secret, {}, async (err, info) => {
+		if (err) throw err;
+		const { 
+            namePrefix,
+            fullName,
+            firstName,
+            middleName,
+            lastName,
+            nameSuffix,
+            phoneNumber,
+            emailAddress,
+            address,
+            dateOfBirth,
+            additionalNote,
+        } = req.body;
+
+		const contactDoc = await Contact.create({
+			namePrefix,
+            fullName,
+            firstName,
+            middleName,
+            lastName,
+            nameSuffix,
+            phoneNumber,
+            emailAddress,
+            address,
+            dateOfBirth,
+            additionalNote,
+            creator: info.id,
+		});
+		res.status(200).json({
+            success: true,
+            createdContact: contactDoc, 
+        });
+	});
+
+
+    // try {
+    //     // Creating new contact entry
+    //     const contactInfo = await Contact.create({
+    //         namePrefix,
+    //         firstName,
+    //         middleName,
+    //         lastName,
+    //         nameSuffix,
+    //         phoneNumber,
+    //         emailAddress,
+    //         address,
+    //         dateOfBirth,
+    //         relation,
+    //         additionalNote,
+    //         owner,
+    //     });
+    //     res.json({
+    //         success: true,
+    //         contactInfo,
+    //     });
+    // } catch (err) {
+    //     res.status(412).json({
+    //         success: false, 
+    //         err,
+    //     });
+    // }
+});
+
+router.get("/getAllUserContacts", async (req, res) => {
+    const { userId } = req.query;
+    
+    const contactsDoc = await Contact.find().populate("creator", ["id"]).sort({fullName: 1});
+
+    res.status(200).json({
+        success: true,
+        contacts: contactsDoc,
+    });
+})
 
 export default router;

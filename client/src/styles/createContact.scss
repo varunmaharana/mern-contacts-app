@@ -1,0 +1,132 @@
+@import "colors";
+
+#createContact {
+    background: $cream;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    padding: 50px 150px;
+
+    > .container {
+        width: 100%;
+
+        > h1 {
+            margin-bottom: 20px;
+            padding: 5px 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        > form {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            gap: 20px;
+
+            > .imageUpload {
+                max-width: 40%;
+            }
+
+            > .submit {
+                display: flex;
+                justify-content: end;
+            }
+
+            > .info {
+                width: 100%;
+                display: flex;
+                // justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                gap: 20px;
+
+                div {
+                    width: 100%;
+                    > label {
+                        font-size: 1rem;
+                        font-weight: 700;
+
+                        > sup {
+                            color: red;
+                        }
+                    }
+
+                    > .errMessage {
+                        margin-top: 10px;
+        
+                        display: flex;
+                        align-items: center;
+                        
+                        > svg {
+                            stroke: red;
+                        }
+                        
+                        > p {
+                            color: red;
+                            margin-left: 8px;
+                            font-size: 0.8rem;
+                        }
+                    }
+                }
+            }
+
+            > .errMessage {
+                // margin-left: 10px;
+
+                display: flex;
+                align-items: center;
+                
+                > svg {
+                    stroke: red;
+                }
+                
+                > p {
+                    color: red;
+                    margin-left: 8px;
+                    font-size: 0.8rem;
+                }
+            }
+
+            input,
+            textarea {
+                font-size: 1rem;
+                padding: 1rem;
+                border: 1px solid black;
+                border-radius: 5px;
+                outline: none;
+                width: 100%;
+
+                &:not(:placeholder-shown) {
+                    box-shadow: 0 0 10px #0000006d;
+                }
+            }
+
+            textarea {
+                resize: vertical;
+            }
+
+            // input[type="date"] {
+            //     &:not(:placeholder-shown) {
+            //         box-shadow: 0 0 10px #0000006d;
+            //     }
+            // }
+
+            input[type="submit"] {
+                // font-size: 0.5rem;
+                padding: 0.5rem 1rem;
+                align-self: center;
+                width: auto;
+                background-color: $lighterpurple;
+                cursor: pointer;
+
+                &:active {
+                    background-color: $purple;
+                }
+            }
+
+        }
+    }
+}

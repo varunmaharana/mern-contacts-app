@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff, FiInfo } from "react-icons/fi";
 import { API_LINK } from "../../core";
+import { useSelector } from "react-redux";
 
 const SignUp = () => {
+  const { isAuthenticated } = useSelector(
+    (state) => state.isAuthenticatedReducer
+  );
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [retypedPassword, setRetypedPassword] = useState("");
@@ -46,6 +51,10 @@ const SignUp = () => {
   if (redirect) {
 		return <Navigate to="/login" />;
 	}
+
+  if (isAuthenticated) {
+    return <Navigate to="/home" />;
+  }
 
   return (
     <section id="signup">
