@@ -9,6 +9,19 @@ import { USER_AUTH_TOKEN } from "../../core";
 const Header = ({ isAuthenticated }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [stickyState, setStickyState] = useState(false);
+  const [authTokenPresent, setAuthTokenPresent] = useState(false);
+
+  useEffect(() => {
+    if (Cookies.get(USER_AUTH_TOKEN)) {
+      setAuthTokenPresent(true);
+    } else {
+      setAuthTokenPresent(false);
+      isAuthenticatedDispatch({
+        type: "unauthorize",
+      });
+    }
+  }, []);
+
   // const { isAuthenticated } = useContext(UserContext);
   const handleScroll = () => {
     const position = window.scrollY;
@@ -40,14 +53,20 @@ const Header = ({ isAuthenticated }) => {
     // Delete token and unauthorize user
     if (Cookies.get(USER_AUTH_TOKEN)) {
       Cookies.remove(USER_AUTH_TOKEN);
-    }
-
-    if (Cookies.get(USER_AUTH_TOKEN)) {
-    } else {
+      setAuthTokenPresent(false);
       isAuthenticatedDispatch({
         type: "unauthorize",
       });
     }
+
+    // if (Cookies.get(USER_AUTH_TOKEN)) {
+    // } 
+    // else {
+    //   console.log("else");
+    //   isAuthenticatedDispatch({
+    //     type: "unauthorize",
+    //   });
+    // }
 
     console.log(isAuthenticated, "isAuthenticated after h dispatch");
 
