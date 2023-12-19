@@ -18,7 +18,7 @@ const CreateContact = () => {
   const [lastName, setLastName] = useState("");
   const [nameSuffix, setNameSuffix] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [emailName, setEmailAddress] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [address, setAddress] = useState("");
   const [additionalNote, setAdditionalNote] = useState("");
@@ -33,24 +33,24 @@ const CreateContact = () => {
       return;
     }
 
-    const data = new FormData();
-    data.append("namePrefix", namePrefix);
-    data.append("firstName", firstName);
-    data.append("middleName", middleName);
-    data.append("lastName", lastName);
-    data.append("nameSuffix", nameSuffix);
-    data.append("phoneNumber", phoneNumber);
-    data.append("emailName", emailName);
-    data.append("dateOfBirth", dateOfBirth);
-    data.append("address", address);
-    data.append("additionalNote", additionalNote);
-    data.append("creator", userInfo.id);
+    // const data = new FormData();
+    // data.append("namePrefix", namePrefix);
+    // data.append("firstName", firstName);
+    // data.append("middleName", middleName);
+    // data.append("lastName", lastName);
+    // data.append("nameSuffix", nameSuffix);
+    // data.append("phoneNumber", phoneNumber);
+    // data.append("emailAddress", emailAddress);
+    // data.append("dateOfBirth", dateOfBirth);
+    // data.append("address", address);
+    // data.append("additionalNote", additionalNote);
+    // data.append("creator", userInfo.id);
 
     let reqObject = {};
     data.forEach((value, key) => (reqObject[key] = value));
     reqObject = {
       ...reqObject, 
-      fullName: firstName + " " + middleName + " " + lastName,
+      fullName: namePrefix + firstName + middleName + lastName + nameSuffix,
     }
 
     const response = await fetch(`${API_LINK}/createContact`, {

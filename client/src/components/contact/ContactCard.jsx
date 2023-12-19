@@ -14,14 +14,14 @@ import tempdp from ".././../assets/dp.jpg";
 import tempdp2 from ".././../assets/seminar.jpg";
 
 const ContactCard = ({
-  namePrefix = "Mr.",
-  firstName = "Varun",
-  middleName = "Nexile",
-  lastName = "Maharana",
-  nameSuffix = "CSE",
-  phoneNumber = "7049504859",
-  emailAddress = "varunmaharana95@gmail.com",
-  address = "Raipur, Chhattisgarh, India",
+  namePrefix,
+  firstName,
+  middleName,
+  lastName,
+  nameSuffix,
+  phoneNumber,
+  emailAddress,
+  address,
 }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
 

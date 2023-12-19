@@ -10,7 +10,7 @@ const Home = () => {
   );
 
   const { userInfo } = useSelector((state) => state.userInfoReducer);
-  console.log("User Info:", userInfo);
+  // console.log("User Info:", userInfo);
 
   const [allUserContacts, setAllUserContacts] = useState([]);
 
@@ -19,7 +19,7 @@ const Home = () => {
     fetch(`${API_LINK}/getAllUserContacts?userId=${userInfo.id}`).then(
       (response) => {
         response.json().then((contacts) => {
-          setAllUserContacts(contacts);
+          setAllUserContacts(contacts.contacts);
         });
       }
     );
@@ -34,10 +34,9 @@ const Home = () => {
       <div className="container">
         {allUserContacts.length > 0 &&
           allUserContacts.map((contact, index) => {
-            console.log("found");
             return (
               <ContactCard
-                key={index}
+                key={contact._id}
                 namePrefix={contact.namePrefix}
                 firstName={contact.firstName}
                 middleName={contact.middleName}
@@ -50,8 +49,8 @@ const Home = () => {
             );
           })}
 
-        {/* {allUserContacts.length ||
-          (allUserContacts.length === 0 && <h1>No contacts found</h1>)} */}
+        {!allUserContacts.length ||
+          (allUserContacts.length === 0 && <h1>No contacts found</h1>)}
       </div>
     </section>
   );
