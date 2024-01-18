@@ -46,12 +46,12 @@ const CreateContact = () => {
     // data.append("additionalNote", additionalNote);
     // data.append("creator", userInfo.id);
 
-    let reqObject = {};
-    data.forEach((value, key) => (reqObject[key] = value));
-    reqObject = {
-      ...reqObject, 
-      fullName: namePrefix + firstName + middleName + lastName + nameSuffix,
-    }
+    // let reqObject = {};
+    // data.forEach((value, key) => (reqObject[key] = value));
+    // reqObject = {
+    //   ...reqObject, 
+    //   fullName: namePrefix + firstName + middleName + lastName + nameSuffix,
+    // }
 
     const response = await fetch(`${API_LINK}/createContact`, {
       method: "POST",

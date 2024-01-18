@@ -16,7 +16,7 @@ const Home = () => {
 
   // Main API Call
   useEffect(() => {
-    fetch(`${API_LINK}/getAllUserContacts?userId=${userInfo.id}`).then(
+    fetch(`${API_LINK}/getAllUserContacts?userId=${userInfo?.id}`).then(
       (response) => {
         response.json().then((contacts) => {
           setAllUserContacts(contacts.contacts);
