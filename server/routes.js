@@ -121,7 +121,8 @@ router.post("/createContact", async (req, res) => {
 		try {
 			const contactDoc = await Contact.create({
 				namePrefix,
-				fullName: namePrefix + firstName + middleName + lastName + nameSuffix,
+				fullName:
+					namePrefix + firstName + middleName + lastName + nameSuffix,
 				firstName,
 				middleName,
 				lastName,
@@ -177,15 +178,22 @@ router.post("/createContact", async (req, res) => {
 router.get("/getAllUserContacts", async (req, res) => {
 	const { userId } = req.query;
 
-	const contactsDoc = await Contact.find({ _id: userId })
-		.populate("creator", ["id"])
-		.collation({ locale: "en", strength: 2 })
-		.sort({ fullName: 1 });
+	try {
+		const contactsDoc = await Contact.find({ _id: userId })
+			.populate("creator", ["id"])
+			.collation({ locale: "en", strength: 2 })
+			.sort({ fullName: 1 });
 
-	res.status(200).json({
-		success: true,
-		contacts: contactsDoc,
-	});
+		res.status(200).json({
+			success: true,
+			contacts: contactsDoc,
+		});
+	} catch (err) {
+		res.status(412).json({
+			success: false,
+			err,
+		});
+	}
 });
 
 // Delete contact
@@ -213,6 +221,40 @@ router.delete("/deleteContact", async (req, res) => {
 	}
 });
 
+// Get user info
+router.get("/getUserInfo", async (req, res) => {
+	const { userId } = req.query;
 
+	try {
+		const userDoc = await User.findOne({ _id: userId });
+		res.status(200).json({
+			success: true,
+			userInfo: userDoc,
+		});
+	} catch (err) {
+		res.status(412).json({
+			success: false,
+			err,
+		});
+	}
+});
+
+// Get contact info
+router.get("/getContactInfo", async (req, res) => {
+	const { contactId } = req.query;
+
+	try {
+		const contactDoc = await Contact.findOne({ _id: contactId });
+		res.status(200).json({
+			success: true,
+			userInfo: contactDoc,
+		});
+	} catch (err) {
+		res.status(412).json({
+			success: false,
+			err,
+		});
+	}
+});
 
 export default router;
