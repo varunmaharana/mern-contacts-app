@@ -2,7 +2,9 @@
 
 A full stack contacts app built using the MERN stack.
 
-## Environment Variables (Backend)
+## Backend
+
+### Environment Variables
 
 Please follow the below instructions to create environment variables.
 
@@ -23,3 +25,9 @@ DEV_PORT=4000
 CLIENT_URL=<client_url>
 MONGODB_URI=<mongodb_url>
 ```
+
+### API Routes (Endpoints)
+
+| Index | Method | Endpoint | Request Body Params | Query Params | Description |
+| ----- | ------ | -------- | ------------------- | ------------ | ----------- |
+| 1     |        |          |                     |              |             |

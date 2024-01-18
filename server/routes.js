@@ -198,27 +198,32 @@ router.get("/getAllUserContacts", async (req, res) => {
 
 // Delete contact
 router.delete("/deleteContact", async (req, res) => {
-	const { id } = req.body;
+	const { contact_app_login_token } = req.cookies;
+	jwt.verify(contact_app_login_token, secret, {}, async (err, info) => {
+		if (err) throw err;
 
-	try {
-		const deleteContact = await Contact.deleteOne({ _id: id });
-		if (deleteContact.deletedCount > 0) {
-			res.status(200).json({
-				success: true,
-				message: "User contact deleted successfully!",
-			});
-		} else {
+		const { id } = req.body;
+
+		try {
+			const deleteContact = await Contact.deleteOne({ _id: id });
+			if (deleteContact.deletedCount > 0) {
+				res.status(200).json({
+					success: true,
+					message: "User contact deleted successfully!",
+				});
+			} else {
+				res.status(412).json({
+					success: false,
+					message: "Contact not found!",
+				});
+			}
+		} catch (err) {
 			res.status(412).json({
 				success: false,
-				message: "Contact not found!",
+				err,
 			});
 		}
-	} catch (err) {
-		res.status(412).json({
-			success: false,
-			err,
-		});
-	}
+	});
 });
 
 // Get user info
@@ -255,6 +260,82 @@ router.get("/getContactInfo", async (req, res) => {
 			err,
 		});
 	}
+});
+
+// Update user contact info
+router.put("/updateUserContactInfo", async (req, res) => {
+	const { contact_app_login_token } = req.cookies;
+	jwt.verify(contact_app_login_token, secret, {}, async (err, info) => {
+		if (err) throw err;
+
+		const { contactId } = req.query;
+		const {
+			namePrefix,
+			fullName,
+			firstName,
+			middleName,
+			lastName,
+			nameSuffix,
+			phoneNumber,
+			emailAddress,
+			address,
+			dateOfBirth,
+			additionalNote,
+		} = req.body;
+
+		try {
+			const updatedContactDoc = await Contact.findOneAndUpdate(
+				{ _id: contactId },
+				{
+					$set: {
+						namePrefix,
+						fullName:
+							namePrefix +
+							firstName +
+							middleName +
+							lastName +
+							nameSuffix,
+						firstName,
+						middleName,
+						lastName,
+						nameSuffix,
+						phoneNumber,
+						emailAddress,
+						address,
+						dateOfBirth,
+						additionalNote,
+					},
+				},
+				{ new: true }
+			)
+				.then((updatedContact) => {
+					if (updatedContact) {
+						res.status(200).json({
+							success: true,
+							message: "Contact updated successfully",
+							updatedContact,
+						});
+					} else {
+						res.status(404).json({
+							success: false,
+							message: "Contact not found",
+						});
+					}
+				})
+				.catch((err) => {
+					console.error(err);
+					res.status(500).json({
+						success: false,
+						message: "Error updating contact",
+					});
+				});
+		} catch (err) {
+			res.status(412).json({
+				success: false,
+				err,
+			});
+		}
+	});
 });
 
 export default router;
