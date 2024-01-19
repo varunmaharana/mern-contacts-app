@@ -5,6 +5,7 @@ import { API_LINK, USER_AUTH_TOKEN } from "../../core";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -65,7 +66,8 @@ const Login = () => {
         setToggleRedirect(true);
       } else {
         console.log(response);
-        setErrorMessage("Login Failed! Please try again.");
+        setErrorMessage("Login failed! Please try again.");
+        toast.error("Login failed!\nPlease try again.")
       }
     }
   };

@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff, FiInfo } from "react-icons/fi";
 import { API_LINK } from "../../core";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const { isAuthenticated } = useSelector(
@@ -36,14 +37,15 @@ const SignUp = () => {
       });
       if (response.ok) {
         console.log(response);
-
+        toast.success("Account created successfully!\nPlease login.");
         // redirect to Login Page
         setRedirect(true);
         // navigate("/login");
         // alert("Registration successful.");
       } else {
         console.log(response);
-        setErrorMessage("Registration Failed! Please try again.");
+        setErrorMessage("Registration failed! Please try again.");
+        toast.error("Registration failed!\nPlease try again.")
       }
     }
   };

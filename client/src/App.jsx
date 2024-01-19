@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import { Provider, useSelector } from "react-redux";
 import store from "./redux/store";
 
@@ -25,6 +27,8 @@ import "./styles/signup.scss";
 import "./styles/home.scss";
 import "./styles/contactCard.scss";
 import "./styles/createContact.scss";
+import "./styles/editContact.scss";
+import "./styles/loader.scss"
 
 const App = () => {
   // const { isAuthenticated } = useContext(UserContext);
@@ -46,11 +50,11 @@ const App = () => {
         <Route path="/myprofile/edit" element={<EditProfile />} />
         <Route path="/contact/create" element={<CreateContact />} />
         <Route path="/contact/:id" element={<ViewContact />} />
-        <Route path="/contact/edit/:id" element={<EditContact />} />
+        <Route path="/contact/:id/edit" element={<EditContact />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-
+      <ToastContainer />
       <Footer />
     </div>
   );

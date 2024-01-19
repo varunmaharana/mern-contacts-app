@@ -179,7 +179,7 @@ router.get("/getAllUserContacts", async (req, res) => {
 	const { userId } = req.query;
 
 	try {
-		const contactsDoc = await Contact.find({ _id: userId })
+		const contactsDoc = await Contact.find({ creator: userId })
 			.populate("creator", ["id"])
 			.collation({ locale: "en", strength: 2 })
 			.sort({ fullName: 1 });
@@ -252,7 +252,7 @@ router.get("/getContactInfo", async (req, res) => {
 		const contactDoc = await Contact.findOne({ _id: contactId });
 		res.status(200).json({
 			success: true,
-			userInfo: contactDoc,
+			contactInfo: contactDoc,
 		});
 	} catch (err) {
 		res.status(412).json({

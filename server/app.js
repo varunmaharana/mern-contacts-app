@@ -14,9 +14,9 @@ dotenv.config({
 
 app.use(
 	cors({
-		credentials: true,
 		origin: process.env.CLIENT_URL,
 		methods: ["GET", "POST", "PUT", "DELETE"],
+		credentials: true,
 	})
 );
 app.use(express.json());
@@ -36,6 +36,7 @@ import crudRoutes from "./routes.js";
 app.use("/api", crudRoutes);
 
 // Served using this
-app.listen(process.env.DEV_PORT, () => {
-    console.log("Server is running at port:", process.env.DEV_PORT);
+const PORT = process.env.DEV_PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server is running at port ${PORT}.`);
 })
