@@ -58,6 +58,8 @@ const Login = () => {
               type: "addUserInfo",
               payload: userInfo,
             });
+            
+            toast.success("Logged in successfuly!");
           }
 
           console.log(isAuthenticated, "isAuthenticated after dispatch");

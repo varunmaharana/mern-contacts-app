@@ -138,5 +138,27 @@
                 box-shadow: none;
             }
         }
+
+        > .optionsButtons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+
+            button {
+                font-size: 1.3rem;
+                padding: 0.3rem;
+                border: 1px solid black;
+                border-radius: 5px;
+                outline: none;
+                background-color: $lighterpurple;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+        }
     }
 }

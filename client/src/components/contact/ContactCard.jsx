@@ -36,60 +36,68 @@ const ContactCard = ({
 			credentials: "include",
 			headers: { "Content-Type": "application/json" },
 		}).then((response) => {
-			response.json().then(res => {
-        console.log(res);
-        if (res.success) {
-          console.log("fetch after delete");
-          fetchContacts();
-        }
-      });
+			response.json().then((res) => {
+				console.log(res);
+				if (res.success) {
+					console.log("fetch after delete");
+					fetchContacts();
+				}
+			});
 		});
 	};
 
 	return (
 		<div id="contactCard">
-			<div className="content">
-				<div className="avatar">
-					<img src={tempdp} alt="avatar" />
+			<NavLink to={"/contact/" + id}>
+				<div className="content">
+					<div className="avatar">
+						<img src={tempdp} alt="avatar" />
+					</div>
+					<div className="info">
+						<h3 className="fullName">
+							{namePrefix && (
+								<span className="namePrefix">
+									{namePrefix}{" "}
+								</span>
+							)}
+							{firstName && (
+								<span className="firstName">{firstName} </span>
+							)}
+							{middleName && (
+								<span className="middleName">
+									{middleName}{" "}
+								</span>
+							)}
+							{lastName && (
+								<span className="lastName">{lastName}</span>
+							)}
+							{nameSuffix && (
+								<span className="nameSuffix">
+									, {nameSuffix}
+								</span>
+							)}
+						</h3>
+						{phoneNumber && (
+							<p className="phoneNumber">
+								<MdPhone />
+								&nbsp;{phoneNumber}
+							</p>
+						)}
+						{emailAddress && (
+							<p className="emailAddress">
+								<MdEmail />
+								&nbsp;{emailAddress}
+							</p>
+						)}
+						{address && (
+							<p className="address">
+								<MdLocationOn />
+								&nbsp;{address}
+							</p>
+						)}
+					</div>
 				</div>
-				<div className="info">
-					<h3 className="fullName">
-						{namePrefix && (
-							<span className="namePrefix">{namePrefix} </span>
-						)}
-						{firstName && (
-							<span className="firstName">{firstName} </span>
-						)}
-						{middleName && (
-							<span className="middleName">{middleName} </span>
-						)}
-						{lastName && (
-							<span className="lastName">{lastName}</span>
-						)}
-						{nameSuffix && (
-							<span className="nameSuffix">, {nameSuffix}</span>
-						)}
-					</h3>
-					{phoneNumber && (
-						<p className="phoneNumber">
-							<MdPhone />
-							&nbsp;{phoneNumber}
-						</p>
-					)}
-					{emailAddress && (
-						<p className="emailAddress">
-							<MdEmail />
-							&nbsp;{emailAddress}
-						</p>
-					)}
-					{address && (
-						<p className="address">
-							<MdLocationOn />
-							&nbsp;{address}
-						</p>
-					)}
-				</div>
-			</div>
+			</NavLink>
 
 			<div
 				className="menuButton"
@@ -106,15 +114,15 @@ const ContactCard = ({
 					>
 						<MdClose />
 					</div>
-          <NavLink to={`/contact/${id}/edit`}>
-            <motion.button
-              initial={{ x: "-100%" }}
-              whileInView={{ x: 0 }}
-              className="editButton"
-            >
-              <MdEdit />
-            </motion.button>
-          </NavLink>
+					<NavLink to={`/contact/${id}/edit`}>
+						<motion.button
+							initial={{ x: "-100%" }}
+							whileInView={{ x: 0 }}
+							className="editButton"
+						>
+							<MdEdit />
+						</motion.button>
+					</NavLink>
 					<motion.button
 						initial={{ x: "100%" }}
 						whileInView={{ x: 0 }}

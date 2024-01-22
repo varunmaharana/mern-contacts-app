@@ -28,6 +28,7 @@ import "./styles/home.scss";
 import "./styles/contactCard.scss";
 import "./styles/createContact.scss";
 import "./styles/editContact.scss";
+import "./styles/viewContact.scss";
 import "./styles/loader.scss"
 
 const App = () => {

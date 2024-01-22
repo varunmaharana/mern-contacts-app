@@ -4,6 +4,8 @@ import { Link, NavLink, Navigate, useParams } from "react-router-dom";
 import { API_LINK } from "../../core";
 import { FiInfo } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { MdArrowBack } from "react-icons/md";
 
 import tempdp from ".././../assets/dp.jpg";
 
@@ -16,7 +18,7 @@ const formatDate = (date) => {
 
 	const formattedDate = `${year}-${month}-${day}`;
 
-  return formattedDate;
+	return formattedDate;
 };
 
 const EditContact = () => {
@@ -92,17 +94,20 @@ const EditContact = () => {
 		//   fullName: namePrefix + firstName + middleName + lastName + nameSuffix,
 		// }
 
-		const response = await fetch(`${API_LINK}/updateUserContactInfo?contactId=${id}`, {
-			method: "PUT",
-			body: JSON.stringify(reqObject),
-			credentials: "include",
-			headers: { "Content-Type": "application/json" },
-		});
+		const response = await fetch(
+			`${API_LINK}/updateUserContactInfo?contactId=${id}`,
+			{
+				method: "PUT",
+				body: JSON.stringify(reqObject),
+				credentials: "include",
+				headers: { "Content-Type": "application/json" },
+			}
+		);
 		// console.log(await response.json());
 
 		if (response.ok) {
 			setToggleRedirect(true);
-			toast.success("Contact created successfully!");
+			toast.success("Contact updated successfully!");
 			console.log(response);
 		}
 	};
@@ -112,12 +117,25 @@ const EditContact = () => {
 	}
 
 	if (toggleRedirect) {
-		return <Navigate to="/home" />;
+		return <Navigate to={"/contact/" + id} />;
 	}
 
 	return (
 		<section id="editContact">
 			<div className="container">
+				<div className="optionsButtons">
+					<motion.button
+						initial={{ x: "-100%" }}
+						whileInView={{ x: 0 }}
+						className="backButton"
+						onClick={() => {
+							backToPrevPage();
+						}}
+					>
+						<MdArrowBack />
+						{"Back"}
+					</motion.button>
+				</div>
 				<h1>Edit Contact</h1>
 				<form onSubmit={updateContact}>
 					<div className="imageUpload">
@@ -130,7 +148,7 @@ const EditContact = () => {
 								type="text"
 								name="namePrefix"
 								placeholder="Name Prefix"
-								value={namePrefix}
+								value={namePrefix || ""}
 								onChange={(e) => setNamePrefix(e.target.value)}
 							/>
 						</div>
@@ -143,7 +161,7 @@ const EditContact = () => {
 								type="text"
 								name="firstName"
 								placeholder="First name"
-                value={firstName}
+								value={firstName || ""}
 								onChange={(e) => setFirstName(e.target.value)}
 							/>
 							{errorMessage !== "" && (
@@ -160,7 +178,7 @@ const EditContact = () => {
 								type="text"
 								name="middleName"
 								placeholder="Middle Name"
-                value={middleName}
+								value={middleName || ""}
 								onChange={(e) => setMiddleName(e.target.value)}
 							/>
 						</div>
@@ -171,7 +189,7 @@ const EditContact = () => {
 								type="text"
 								name="lastName"
 								placeholder="Last Name"
-                value={lastName}
+								value={lastName}
 								onChange={(e) => setLastName(e.target.value)}
 							/>
 						</div>
@@ -182,7 +200,7 @@ const EditContact = () => {
 								type="text"
 								name="nameSuffix"
 								placeholder="Name Suffix"
-                value={nameSuffix}
+								value={nameSuffix || ""}
 								onChange={(e) => setNameSuffix(e.target.value)}
 							/>
 						</div>
@@ -193,7 +211,7 @@ const EditContact = () => {
 								type="number"
 								name="phoneNumber"
 								placeholder="Phone Number"
-                value={phoneNumber}
+								value={phoneNumber || ""}
 								onChange={(e) =>
 									setPhoneNumber(e.target.value + "")
 								}
@@ -206,7 +224,7 @@ const EditContact = () => {
 								type="email"
 								name="emailAddress"
 								placeholder="Email Address"
-                value={emailAddress}
+								value={emailAddress || ""}
 								onChange={(e) =>
 									setEmailAddress(e.target.value)
 								}
@@ -219,7 +237,7 @@ const EditContact = () => {
 								type="date"
 								name="dateOfBirth"
 								placeholder="Date of Birth"
-                value={formatDate(dateOfBirth)}
+								value={formatDate(dateOfBirth)}
 								onChange={(e) => setDateOfBirth(e.target.value)}
 							/>
 						</div>
@@ -230,7 +248,7 @@ const EditContact = () => {
 								type="text"
 								name="address"
 								placeholder="Address"
-                value={address}
+								value={address || ""}
 								onChange={(e) => setAddress(e.target.value)}
 							/>
 						</div>
@@ -241,7 +259,7 @@ const EditContact = () => {
 								type="text"
 								name="additionalNote"
 								placeholder="Note"
-                value={additionalNote}
+								value={additionalNote || ""}
 								onChange={(e) =>
 									setAdditionalNote(e.target.value)
 								}
@@ -250,10 +268,10 @@ const EditContact = () => {
 					</div>
 
 					<div className="submit">
-						<NavLink to="/home">
+						<NavLink to={"/contact" + id}>
 							<input type="button" value="Cancel" />
 						</NavLink>
-						<input type="submit" value="Create Contact" />
+						<input type="submit" value="Save Changes" />
 					</div>
 				</form>
 			</div>
