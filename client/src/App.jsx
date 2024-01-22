@@ -19,7 +19,7 @@ import ViewContact from "./components/contact/ViewContact";
 import EditContact from "./components/contact/EditContact";
 
 // Importing Styles
-import "./styles/App.scss";
+import "./styles/app.scss";
 import "./styles/header.scss";
 import "./styles/footer.scss";
 import "./styles/login.scss";
